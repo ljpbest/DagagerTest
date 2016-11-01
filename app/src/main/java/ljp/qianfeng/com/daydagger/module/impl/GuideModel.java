@@ -1,10 +1,14 @@
 package ljp.qianfeng.com.daydagger.module.impl;
 
+import com.google.gson.Gson;
+
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import ljp.qianfeng.com.daydagger.bean.SelectedBean;
 import ljp.qianfeng.com.daydagger.common.URLConstant;
+import ljp.qianfeng.com.daydagger.log.LogUtils;
 import ljp.qianfeng.com.daydagger.module.IGuideModel;
 
 /**
@@ -14,11 +18,12 @@ public class GuideModel implements IGuideModel{
     @Override
     public void querylist(int pageno) {
         RequestParams requestParams=new RequestParams(URLConstant.GUIDE_SELECTED_URL);
-        requestParams.addBodyParameter("pageno",pageno+"");
         x.http().post(requestParams, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-
+                LogUtils.log(GuideModel.class,result);
+                Gson gson=new Gson();
+                SelectedBean selectedBean = gson.fromJson(result, SelectedBean.class);
             }
 
             @Override
