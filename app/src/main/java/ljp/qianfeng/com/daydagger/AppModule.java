@@ -13,4 +13,8 @@ public class AppModule {
     public User provider(){
         return new User();
     }
+
+    public String usergetname(User user){
+        return user.getName();
+    }
 }
